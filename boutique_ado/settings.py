@@ -37,6 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
 ]
 
 MIDDLEWARE = [
@@ -59,7 +63,7 @@ TEMPLATES = [
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
-                'django.template.context_processors.request',
+                'django.template.context_processors.request', # required by allauth
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
@@ -67,7 +71,48 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'boutique_ado.wsgi.application'
+AUTHENTICATION_BACKENDS = (
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
+
+SITE_ID = 1
+
+ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+ACCOUNT_SIGNUP_EMAIL_ENTER_TWICE = True
+ACCOUNT_USERNAME_MIN_LENGTH = 4
+LOGIN_URL = '/accounts/login/'
+LOGIN_REDIRECT_URL = '/'
+
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# ACCOUNT_AUTHENTICATION_METHOD = 'username.email'
+# # can log in with username or e-mail address
+
+# ACCOUNT_EMAIL_REQUIRED = True
+# # need to provide e-mail when registering for account
+
+# ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+# # requires user to click on link in confirmation e-mail to activate account
+
+# ACCOUNT_SIGNUP_EMAIL_ENTER_TWICE = True
+# # user must confirm e-mail address when signing up to ensure no typos
+
+# ACCOUNT_USERNAME_MIN_LENGTH = 4
+# # username must be a minimum of 4 chars
+
+# LOGIN_URL = '/accounts/login/'
+# # URL of login page for user
+
+# LOGIN_REDIRECT_URL = '/success'
+# # once logged in user is redirected back to home page
+
+# WSGI_APPLICATION = 'boutique_ado.wsgi.application'
 
 
 # Database
