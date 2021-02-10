@@ -1,16 +1,14 @@
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib import messages
 from django.db.models import Q
-from .models import Product, Category
 from django.db.models.functions import Lower
+from .models import Product, Category
 
 # Create your views here.
 
 
-"""A view to show all products, including sorting and search queries"""
-
-
 def all_products(request):
+    """A view to show all products, including sorting and search queries"""
 
     products = Product.objects.all()
     query = None
@@ -32,7 +30,6 @@ def all_products(request):
                 if direction == 'desc':
                     sortkey = f'-{sortkey}'
             products = products.order_by(sortkey)
-
 
         if 'category' in request.GET:
             categories = request.GET['category'].split(',')
@@ -60,10 +57,8 @@ def all_products(request):
     return render(request, "products/products.html", context)
 
 
-"""A view to show individual product details"""
-
-
 def product_detail(request, product_id):
+    """A view to show individual product details"""
 
     product = get_object_or_404(Product, pk=product_id)
 
@@ -72,4 +67,3 @@ def product_detail(request, product_id):
     }
 
     return render(request, "products/product_detail.html", context)
-
