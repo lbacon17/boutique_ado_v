@@ -2,7 +2,7 @@ from django import forms
 from .models import Order
 
 
-class OrderForm(models.ModelForm):
+class OrderForm(forms.ModelForm):
     class Meta:
         model = Order
         fields = ('full_name', 'email', 'phone_number',
@@ -22,9 +22,9 @@ class OrderForm(models.ModelForm):
             'phone_number': 'Phone Number',
             'country': 'Country',
             'postcode': 'Postal Code',
-            'town_or_city', 'Town or City',
-            'street_address1', 'Street Address 1',
-            'streed_address2', 'Street Address 2',
+            'town_or_city': 'Town or City',
+            'street_address1': 'Street Address 1',
+            'street_address2': 'Street Address 2',
             'county': 'County',
         }
 
